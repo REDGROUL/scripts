@@ -36,11 +36,11 @@ err() {
 KERNEL_DIR=$PWD
 
 # The name of the Kernel, to name the ZIP
-KERNEL="Nightmare"
+KERNEL="Moonlight"
 
 # Kernel zip name type
-export LOCALVERSION="v1.0"
-LOCALVERSION="v1.0"
+export LOCALVERSION="Fudo-v1.3"
+LOCALVERSION="Fudo-v1.3"
 
 # The name of the device for which the kernel is built
 MODEL="Asus Zenfone Max Pro M2"
@@ -49,7 +49,7 @@ MODEL="Asus Zenfone Max Pro M2"
 DEVICE="X01BD"
 
 # Kernel revision
-KERNELTYPE=EAS
+KERNELTYPE=HMP
 
 # The defconfig which should be used. Get it from config.gz from
 # your device or check source
@@ -117,7 +117,7 @@ then
 	if [ -n "$DRONE" ]
 	then
 		export KBUILD_BUILD_VERSION="1"
-		export KBUILD_BUILD_HOST="Server"
+		export KBUILD_BUILD_HOST="server"
 		export CI_BRANCH=$DRONE_BRANCH
 	else
 		echo "Not presetting Build Version"
