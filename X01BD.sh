@@ -36,27 +36,27 @@ err() {
 KERNEL_DIR=$PWD
 
 # The name of the Kernel, to name the ZIP
-KERNEL="Moonlight"
+KERNEL="Kernel"
 
 # Kernel zip name type
-export LOCALVERSION="Sayu-v1.3"
-LOCALVERSION="Sayu-v1.3"
+export LOCALVERSION="Kernel"
+LOCALVERSION="Kernel"
 
 # The name of the device for which the kernel is built
-MODEL="Asus Zenfone Max Pro M2"
+MODEL="Mi A2"
 
 # The codename of the device
-DEVICE="X01BD"
+DEVICE="jasmine_sprout"
 
 # Kernel revision
-KERNELTYPE=HMP
+KERNELTYPE=EAS
 
 # The defconfig which should be used. Get it from config.gz from
 # your device or check source
-DEFCONFIG=X01BD_defconfig
+DEFCONFIG=wayne_defconfig
 
 # Show manufacturer info
-MANUFACTURERINFO="ASUSTek Computer Inc."
+MANUFACTURERINFO="Xiaomi Inc."
 
 # Specify compiler. 
 # 'clang' or 'gcc'
@@ -132,7 +132,7 @@ KERVER=$(make kernelversion)
 COMMIT_HEAD=$(git log --oneline -1)
 
 # Set Date 
-DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
+DATE=$(TZ=Russia/Moscow date +"%Y%m%d-%T")
 
 #Now Its time for other stuffs like cloning, exporting, etc
 
@@ -167,7 +167,7 @@ DATE=$(TZ=Asia/Jakarta date +"%Y%m%d-%T")
 ##------------------------------------------------------##
 
 exports() {
-	export KBUILD_BUILD_USER="Six"
+	export KBUILD_BUILD_USER="RED"
 	export ARCH=arm64
 	export SUBARCH=arm64
 
@@ -182,34 +182,8 @@ exports() {
 	fi
 
 	export PATH KBUILD_COMPILER_STRING
-	export BOT_MSG_URL="https://api.telegram.org/bot$token/sendMessage"
-	export BOT_BUILD_URL="https://api.telegram.org/bot$token/sendDocument"
 	PROCS=$(nproc --all)
 	export PROCS
-}
-
-##---------------------------------------------------------##
-
-tg_post_msg() {
-	curl -s -X POST "$BOT_MSG_URL" -d chat_id="$2" \
-	-d "disable_web_page_preview=true" \
-	-d "parse_mode=html" \
-	-d text="$1"
-
-}
-
-##----------------------------------------------------------------##
-
-tg_post_build() {
-	#Post MD5Checksum alongwith for easeness
-	MD5CHECK=$(md5sum "$1" | cut -d' ' -f1)
-
-	#Show the Checksum alongwith caption
-	curl --progress-bar -F document=@"$1" "$BOT_BUILD_URL" \
-	-F chat_id="$2"  \
-	-F "disable_web_page_preview=true" \
-	-F "parse_mode=html" \
-	-F caption="$3 | <b>MD5 Checksum : </b><code>$MD5CHECK</code>"  
 }
 
 ##----------------------------------------------------------##
